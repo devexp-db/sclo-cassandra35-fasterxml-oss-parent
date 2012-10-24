@@ -1,12 +1,12 @@
 Name:          fasterxml-oss-parent
-Version:       3
+Version:       4
 Release:       1%{?dist}
 Summary:       FasterXML parent pom
 Group:         Development/Libraries
 License:       ASL 2.0
 URL:           http://fasterxml.com/
-# git clone git://github.com/FasterXML/oss-parent.git fasterxml-oss-parent-3
-# (cd fasterxml-oss-parent-3/ && git archive --format=tar --prefix=fasterxml-oss-parent-3/ oss-parent-3 | xz > ../fasterxml-oss-parent-3-src-git.tar.xz)
+# git clone git://github.com/FasterXML/oss-parent.git fasterxml-oss-parent-4
+# (cd fasterxml-oss-parent-4/ && git archive --format=tar --prefix=fasterxml-oss-parent-4/ oss-parent-4 | xz > ../fasterxml-oss-parent-4-src-git.tar.xz)
 Source0:       %{name}-%{version}-src-git.tar.xz
 
 # remove unavailable extension org.kathrynhuxtable.maven.wagon wagon-gitsite 0.3.1
@@ -60,5 +60,8 @@ mvn-rpmbuild verify
 %doc LICENSE NOTICE README.creole
 
 %changelog
+* Wed Oct 24 2012 gil cattaneo <puntogil@libero.it> 4-1
+- update to 4
+
 * Thu Sep 13 2012 gil cattaneo <puntogil@libero.it> 3-1
 - initial rpm
