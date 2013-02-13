@@ -1,6 +1,6 @@
 Name:          fasterxml-oss-parent
 Version:       4
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       FasterXML parent pom
 Group:         Development/Libraries
 License:       ASL 2.0
@@ -60,6 +60,9 @@ mvn-rpmbuild verify
 %doc LICENSE NOTICE README.creole
 
 %changelog
+* Wed Feb 13 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
+
 * Wed Feb 06 2013 Java SIG <java-devel@lists.fedoraproject.org> - 4-2
 - Update for https://fedoraproject.org/wiki/Fedora_19_Maven_Rebuild
 - Replace maven BuildRequires with maven-local
