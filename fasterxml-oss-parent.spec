@@ -1,28 +1,28 @@
+%global oname oss-parent
 Name:          fasterxml-oss-parent
-Version:       4
-Release:       3%{?dist}
+Version:       10
+Release:       1%{?dist}
 Summary:       FasterXML parent pom
 Group:         Development/Libraries
-License:       ASL 2.0
+# pom file licenses ASL 2.0 and LGPL 2.1
+License:       ASL 2.0 and LGPLv2+
 URL:           http://fasterxml.com/
 # git clone git://github.com/FasterXML/oss-parent.git fasterxml-oss-parent-4
 # (cd fasterxml-oss-parent-4/ && git archive --format=tar --prefix=fasterxml-oss-parent-4/ oss-parent-4 | xz > ../fasterxml-oss-parent-4-src-git.tar.xz)
-Source0:       %{name}-%{version}-src-git.tar.xz
-
-# remove unavailable extension org.kathrynhuxtable.maven.wagon wagon-gitsite 0.3.1
-# fix javadoc configration, remove unavailable com.google.doclava doclava 1.0.3
-Patch0:        fasterxml-oss-parent-3-pom.patch
+Source0:       https://github.com/FasterXML/oss-parent/archive/oss-parent-%{version}.tar.gz
 
 BuildRequires: java-devel
-BuildRequires: jpackage-utils
 
 BuildRequires: maven-local
 BuildRequires: maven-enforcer-plugin
+BuildRequires: maven-plugin-build-helper
 BuildRequires: maven-plugin-bundle
 BuildRequires: maven-site-plugin
+BuildRequires: replacer
+
+Requires:      replacer
 
 Requires:      java
-Requires:      jpackage-utils
 BuildArch:     noarch
 
 %description
@@ -36,12 +36,20 @@ and extension.
 This package contains the parent pom file for FasterXML.com projects.
 
 %prep
-%setup -q -n %{name}-%{version}
-%patch0 -p0
+%setup -q -n %{oname}-%{oname}-%{version}
 
 %pom_remove_plugin org.sonatype.plugins:nexus-maven-plugin
 %pom_remove_plugin org.codehaus.mojo:jdepend-maven-plugin
 %pom_remove_plugin org.codehaus.mojo:taglist-maven-plugin
+# remove unavailable com.google.doclava doclava 1.0.3
+%pom_xpath_remove "pom:build/pom:extensions/pom:extension[pom:artifactId='wagon-gitsite']"
+%pom_xpath_remove "pom:reporting/pom:plugins/pom:plugin[pom:artifactId='maven-javadoc-plugin']/pom:configuration"
+%pom_xpath_inject "pom:reporting/pom:plugins/pom:plugin[pom:artifactId='maven-javadoc-plugin']" '
+<configuration>
+  <encoding>UTF-8</encoding>
+  <quiet>true</quiet>
+  <source>${javac.src.version}</source>
+</configuration>'
 
 %build
 # nothing to do
@@ -60,6 +68,9 @@ mvn-rpmbuild verify
 %doc LICENSE NOTICE README.creole
 
 %changelog
+* Tue May 07 2013 gil cattaneo <puntogil@libero.it> 10-1
+- update to 10
+
 * Wed Feb 13 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
