@@ -1,14 +1,11 @@
 %global oname oss-parent
 Name:          fasterxml-oss-parent
 Version:       10
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       FasterXML parent pom
-Group:         Development/Libraries
 # pom file licenses ASL 2.0 and LGPL 2.1
 License:       ASL 2.0 and LGPLv2+
 URL:           http://fasterxml.com/
-# git clone git://github.com/FasterXML/oss-parent.git fasterxml-oss-parent-4
-# (cd fasterxml-oss-parent-4/ && git archive --format=tar --prefix=fasterxml-oss-parent-4/ oss-parent-4 | xz > ../fasterxml-oss-parent-4-src-git.tar.xz)
 Source0:       https://github.com/FasterXML/oss-parent/archive/oss-parent-%{version}.tar.gz
 
 BuildRequires: java-devel
@@ -20,9 +17,6 @@ BuildRequires: maven-plugin-bundle
 BuildRequires: maven-site-plugin
 BuildRequires: replacer
 
-Requires:      replacer
-
-Requires:      java
 BuildArch:     noarch
 
 %description
@@ -52,22 +46,19 @@ This package contains the parent pom file for FasterXML.com projects.
 </configuration>'
 
 %build
-# nothing to do
+%mvn_build
+
 %install
+%mvn_install
 
-mkdir -p %{buildroot}%{_mavenpomdir}
-install -pm 644 pom.xml %{buildroot}%{_mavenpomdir}/JPP-%{name}.pom
-%add_maven_depmap JPP-%{name}.pom
-
-%check
-mvn-rpmbuild verify
-
-%files
-%{_mavenpomdir}/JPP-%{name}.pom
-%{_mavendepmapfragdir}/%{name}
+%files -f .mfiles
 %doc LICENSE NOTICE README.creole
 
 %changelog
+* Sat Jul 06 2013 gil cattaneo <puntogil@libero.it> 10-2
+- switch to XMvn
+- minor changes to adapt to current guideline
+
 * Tue May 07 2013 gil cattaneo <puntogil@libero.it> 10-1
 - update to 10
 
