@@ -1,7 +1,7 @@
 %global oname oss-parent
 Name:          fasterxml-oss-parent
-Version:       10
-Release:       2%{?dist}
+Version:       11
+Release:       1%{?dist}
 Summary:       FasterXML parent pom
 # pom file licenses ASL 2.0 and LGPL 2.1
 License:       ASL 2.0 and LGPLv2+
@@ -55,6 +55,9 @@ This package contains the parent pom file for FasterXML.com projects.
 %doc LICENSE NOTICE README.creole
 
 %changelog
+* Tue Jul 16 2013 gil cattaneo <puntogil@libero.it> 11-1
+- update to 11
+
 * Sat Jul 06 2013 gil cattaneo <puntogil@libero.it> 10-2
 - switch to XMvn
 - minor changes to adapt to current guideline
