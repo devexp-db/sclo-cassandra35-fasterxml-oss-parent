@@ -1,7 +1,7 @@
 %global oname oss-parent
 Name:          fasterxml-oss-parent
 Version:       11
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       FasterXML parent pom
 # pom file licenses ASL 2.0 and LGPL 2.1
 License:       ASL 2.0 and LGPLv2+
@@ -55,6 +55,9 @@ This package contains the parent pom file for FasterXML.com projects.
 %doc LICENSE NOTICE README.creole
 
 %changelog
+* Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
+
 * Tue Jul 16 2013 gil cattaneo <puntogil@libero.it> 11-1
 - update to 11
 
