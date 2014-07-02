@@ -1,7 +1,7 @@
 %global oname oss-parent
 Name:          fasterxml-oss-parent
 Version:       16
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       FasterXML parent pom
 # pom file licenses ASL 2.0 and LGPL 2.1
 License:       ASL 2.0 and LGPLv2+
@@ -13,7 +13,6 @@ BuildRequires: maven-enforcer-plugin
 BuildRequires: maven-plugin-build-helper
 BuildRequires: maven-plugin-bundle
 BuildRequires: maven-site-plugin
-BuildRequires: replacer
 
 BuildArch:     noarch
 
@@ -53,6 +52,9 @@ This package contains the parent pom file for FasterXML.com projects.
 %doc LICENSE NOTICE README.creole
 
 %changelog
+* Wed Jul 02 2014 gil cattaneo <puntogil@libero.it> 16-2
+- remove com.google.code.maven-replacer-plugin:replacer references 
+
 * Wed Jul 02 2014 gil cattaneo <puntogil@libero.it> 16-1
 - update to 16
 
