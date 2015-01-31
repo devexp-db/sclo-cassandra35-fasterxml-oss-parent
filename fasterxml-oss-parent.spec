@@ -1,12 +1,12 @@
 %global oname oss-parent
 Name:          fasterxml-oss-parent
-Version:       16
-Release:       2%{?dist}
+Version:       18e
+Release:       1%{?dist}
 Summary:       FasterXML parent pom
 # pom file licenses ASL 2.0 and LGPL 2.1
 License:       ASL 2.0 and LGPLv2+
 URL:           http://fasterxml.com/
-Source0:       https://github.com/FasterXML/oss-parent/archive/oss-parent-%{version}.tar.gz
+Source0:       https://github.com/FasterXML/oss-parent/archive/%{version}.tar.gz
 
 BuildRequires: maven-local
 BuildRequires: maven-enforcer-plugin
@@ -27,7 +27,7 @@ and extension.
 This package contains the parent pom file for FasterXML.com projects.
 
 %prep
-%setup -q -n %{oname}-%{oname}-%{version}
+%setup -q -n %{oname}-%{version}
 
 %pom_remove_plugin org.sonatype.plugins:nexus-maven-plugin
 %pom_remove_plugin org.codehaus.mojo:jdepend-maven-plugin
@@ -49,9 +49,13 @@ This package contains the parent pom file for FasterXML.com projects.
 %mvn_install
 
 %files -f .mfiles
-%doc LICENSE NOTICE README.creole
+%doc README.creole
+%license LICENSE NOTICE
 
 %changelog
+* Sat Jan 31 2015 gil cattaneo <puntogil@libero.it> 18e-1
+- update to 18e
+
 * Wed Jul 02 2014 gil cattaneo <puntogil@libero.it> 16-2
 - remove com.google.code.maven-replacer-plugin:replacer references 
 
