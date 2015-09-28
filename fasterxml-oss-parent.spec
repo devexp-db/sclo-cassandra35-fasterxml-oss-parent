@@ -1,18 +1,18 @@
 %global oname oss-parent
 Name:          fasterxml-oss-parent
-Version:       18e
-Release:       2%{?dist}
+Version:       24
+Release:       1%{?dist}
 Summary:       FasterXML parent pom
 # pom file licenses ASL 2.0 and LGPL 2.1
 License:       ASL 2.0 and LGPLv2+
 URL:           http://fasterxml.com/
-Source0:       https://github.com/FasterXML/oss-parent/archive/%{version}.tar.gz
+Source0:       https://github.com/FasterXML/oss-parent/archive/oss-parent-%{version}.tar.gz
 
 BuildRequires: maven-local
-BuildRequires: maven-enforcer-plugin
-BuildRequires: maven-plugin-build-helper
-BuildRequires: maven-plugin-bundle
-BuildRequires: maven-site-plugin
+BuildRequires: mvn(org.apache.felix:maven-bundle-plugin)
+BuildRequires: mvn(org.apache.maven.plugins:maven-enforcer-plugin)
+BuildRequires: mvn(org.apache.maven.plugins:maven-site-plugin)
+BuildRequires: mvn(org.codehaus.mojo:build-helper-maven-plugin)
 
 BuildArch:     noarch
 
@@ -27,13 +27,15 @@ and extension.
 This package contains the parent pom file for FasterXML.com projects.
 
 %prep
-%setup -q -n %{oname}-%{version}
+%setup -q -n %{oname}-%{oname}-%{version}
 
 %pom_remove_plugin org.sonatype.plugins:nexus-maven-plugin
+%pom_remove_plugin :maven-scm-plugin
 %pom_remove_plugin org.codehaus.mojo:jdepend-maven-plugin
 %pom_remove_plugin org.codehaus.mojo:taglist-maven-plugin
+# org.kathrynhuxtable.maven.wagon:wagon-gitsite:0.3.1
+%pom_xpath_remove "pom:build/pom:extensions"
 # remove unavailable com.google.doclava doclava 1.0.3
-%pom_xpath_remove "pom:build/pom:extensions/pom:extension[pom:artifactId='wagon-gitsite']"
 %pom_xpath_remove "pom:reporting/pom:plugins/pom:plugin[pom:artifactId='maven-javadoc-plugin']/pom:configuration"
 %pom_xpath_inject "pom:reporting/pom:plugins/pom:plugin[pom:artifactId='maven-javadoc-plugin']" '
 <configuration>
@@ -53,6 +55,9 @@ This package contains the parent pom file for FasterXML.com projects.
 %license LICENSE NOTICE
 
 %changelog
+* Mon Sep 28 2015 gil cattaneo <puntogil@libero.it> 24-1
+- update to 24
+
 * Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 18e-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
 
