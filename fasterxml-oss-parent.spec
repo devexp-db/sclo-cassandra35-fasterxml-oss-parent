@@ -1,7 +1,7 @@
 %global oname oss-parent
 Name:          fasterxml-oss-parent
 Version:       24
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       FasterXML parent pom
 # pom file licenses ASL 2.0 and LGPL 2.1
 License:       ASL 2.0 and LGPLv2+
@@ -10,7 +10,7 @@ Source0:       https://github.com/FasterXML/oss-parent/archive/oss-parent-%{vers
 
 BuildRequires: maven-local
 BuildRequires: mvn(org.apache.felix:maven-bundle-plugin)
-BuildRequires: mvn(org.apache.maven.plugins:maven-enforcer-plugin)
+#BuildRequires: mvn(org.apache.maven.plugins:maven-enforcer-plugin)
 BuildRequires: mvn(org.apache.maven.plugins:maven-site-plugin)
 BuildRequires: mvn(org.codehaus.mojo:build-helper-maven-plugin)
 
@@ -44,6 +44,8 @@ This package contains the parent pom file for FasterXML.com projects.
   <source>${javac.src.version}</source>
 </configuration>'
 
+%pom_remove_plugin :maven-enforcer-plugin
+
 %build
 %mvn_build
 
@@ -55,6 +57,9 @@ This package contains the parent pom file for FasterXML.com projects.
 %license LICENSE NOTICE
 
 %changelog
+* Sun Oct 25 2015 gil cattaneo <puntogil@libero.it> 24-2
+- disable maven-enforcer-plugin support
+
 * Mon Sep 28 2015 gil cattaneo <puntogil@libero.it> 24-1
 - update to 24
 
