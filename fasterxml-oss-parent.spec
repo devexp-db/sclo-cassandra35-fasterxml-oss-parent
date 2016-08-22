@@ -1,7 +1,7 @@
 %global oname oss-parent
 Name:          fasterxml-oss-parent
-Version:       24
-Release:       3%{?dist}
+Version:       26
+Release:       1%{?dist}
 Summary:       FasterXML parent pom
 # pom file licenses ASL 2.0 and LGPL 2.1
 License:       ASL 2.0 and LGPLv2+
@@ -47,7 +47,7 @@ This package contains the parent pom file for FasterXML.com projects.
 %pom_remove_plugin :maven-enforcer-plugin
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install
@@ -57,6 +57,9 @@ This package contains the parent pom file for FasterXML.com projects.
 %license LICENSE NOTICE
 
 %changelog
+* Mon Aug 22 2016 gil cattaneo <puntogil@libero.it> 26-1
+- update to 26
+
 * Wed Feb 03 2016 Fedora Release Engineering <releng@fedoraproject.org> - 24-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
