@@ -1,7 +1,7 @@
 %global oname oss-parent
 Name:          fasterxml-oss-parent
 Version:       26
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       FasterXML parent pom
 # pom file licenses ASL 2.0 and LGPL 2.1
 License:       ASL 2.0 and LGPLv2+
@@ -10,8 +10,6 @@ Source0:       https://github.com/FasterXML/oss-parent/archive/oss-parent-%{vers
 
 BuildRequires: maven-local
 BuildRequires: mvn(org.apache.felix:maven-bundle-plugin)
-#BuildRequires: mvn(org.apache.maven.plugins:maven-enforcer-plugin)
-BuildRequires: mvn(org.apache.maven.plugins:maven-site-plugin)
 BuildRequires: mvn(org.codehaus.mojo:build-helper-maven-plugin)
 
 BuildArch:     noarch
@@ -45,6 +43,7 @@ This package contains the parent pom file for FasterXML.com projects.
 </configuration>'
 
 %pom_remove_plugin :maven-enforcer-plugin
+%pom_remove_plugin :maven-site-plugin
 
 %build
 %mvn_build -j
@@ -57,6 +56,9 @@ This package contains the parent pom file for FasterXML.com projects.
 %license LICENSE NOTICE
 
 %changelog
+* Thu Feb 02 2017 Michael Simacek <msimacek@redhat.com> - 26-2
+- Remove site-plugin from build
+
 * Mon Aug 22 2016 gil cattaneo <puntogil@libero.it> 26-1
 - update to 26
 
