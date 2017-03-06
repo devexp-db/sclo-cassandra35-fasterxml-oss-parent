@@ -1,18 +1,23 @@
+%{?scl:%scl_package fasterxml-oss-parent}
+%{!?scl:%global pkg_name %{name}}
+
 %global oname oss-parent
-Name:          fasterxml-oss-parent
-Version:       26
-Release:       3%{?dist}
-Summary:       FasterXML parent pom
+
+Name:		%{?scl_prefix}fasterxml-oss-parent
+Version:	26
+Release:	4%{?dist}
+Summary:	FasterXML parent pom
 # pom file licenses ASL 2.0 and LGPL 2.1
-License:       ASL 2.0 and LGPLv2+
-URL:           http://fasterxml.com/
-Source0:       https://github.com/FasterXML/oss-parent/archive/oss-parent-%{version}.tar.gz
+License:	ASL 2.0 and LGPLv2+
+URL:		http://fasterxml.com/
+Source0:	https://github.com/FasterXML/oss-parent/archive/oss-parent-%{version}.tar.gz
 
-BuildRequires: maven-local
-BuildRequires: mvn(org.apache.felix:maven-bundle-plugin)
-BuildRequires: mvn(org.codehaus.mojo:build-helper-maven-plugin)
+BuildRequires:	%{?scl_prefix_maven}maven-local
+BuildRequires:	%{?scl_prefix_maven}maven-plugin-bundle
+BuildRequires:	%{?scl_prefix_maven}maven-plugin-build-helper
+%{?scl:Requires: %scl_runtime}
 
-BuildArch:     noarch
+BuildArch:	noarch
 
 %description
 FasterXML is the business behind the Woodstox streaming XML parser,
@@ -27,6 +32,7 @@ This package contains the parent pom file for FasterXML.com projects.
 %prep
 %setup -q -n %{oname}-%{oname}-%{version}
 
+%{?scl:scl enable %{scl_maven} %{scl} - << "EOF"}
 %pom_remove_plugin org.sonatype.plugins:nexus-maven-plugin
 %pom_remove_plugin :maven-scm-plugin
 %pom_remove_plugin org.codehaus.mojo:jdepend-maven-plugin
@@ -44,18 +50,26 @@ This package contains the parent pom file for FasterXML.com projects.
 
 %pom_remove_plugin :maven-enforcer-plugin
 %pom_remove_plugin :maven-site-plugin
+%{?scl:EOF}
 
 %build
+%{?scl:scl enable %{scl_maven} %{scl} - << "EOF"}
 %mvn_build -j
+%{?scl:EOF}
 
 %install
+%{?scl:scl enable %{scl_maven} %{scl} - << "EOF"}
 %mvn_install
+%{?scl:EOF}
 
 %files -f .mfiles
 %doc README.creole
 %license LICENSE NOTICE
 
 %changelog
+* Mon Mar 06 2017 Tomas Repik <trepik@redhat.com> - 26-4
+- scl conversion
+
 * Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 26-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
